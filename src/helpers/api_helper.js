@@ -10,8 +10,9 @@ const API_URL = "";
 const axiosApi = axios.create({
   baseURL: API_URL,
 });
+const obj = JSON.parse(localStorage.getItem("authUser"));
 
-axiosApi.defaults.headers.common["Authorization"] = token;
+axiosApi.defaults.headers.common["Authorization"] = obj.token;
 
 axiosApi.interceptors.response.use(
   (response) => response,

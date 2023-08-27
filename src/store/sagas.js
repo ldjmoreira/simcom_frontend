@@ -21,10 +21,12 @@ import dashboardSaasSaga from "./dashboard-saas/saga";
 import dashboardCryptoSaga from "./dashboard-crypto/saga";
 import dashboardBlogSaga from "./dashboard-blog/saga";
 import dashboardJobSaga from "./dashboard-jobs/saga";
+import DemoSaga from "./demo/saga"
 
 export default function* rootSaga() {
   yield all([
     //public
+    fork(DemoSaga),
     fork(AccountSaga),
     fork(AuthSaga),
     fork(ForgetSaga),

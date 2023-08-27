@@ -8,9 +8,15 @@ export const POST_FAKE_PASSWORD_FORGET = "/fake-forget-pwd";
 export const POST_FAKE_JWT_PASSWORD_FORGET = "/jwt-forget-pwd";
 export const SOCIAL_LOGIN = "/social-login";
 
+//LOGIN2
+export const POST_LOGIN = "/post-login";
+export const POST_JWT_LOGIN = "http://localhost:8080/login";
+export const POST_PASSWORD_FORGET = "/forget-pwd";
+export const POST_JWT_PASSWORD_FORGET = "/jwt-forget-pwd";
+
 //PROFILE
 export const POST_EDIT_JWT_PROFILE = "/post-jwt-profile";
-export const POST_EDIT_PROFILE = "/post-fake-profile";
+export const POST_EDIT_PROFILE = "/post-fake-profile"; 
 
 //PRODUCTS
 export const GET_PRODUCTS = "/products";
@@ -116,3 +122,6 @@ export const ON_LIKNE_COMMENT = "/comments-product-action";
 export const ON_ADD_REPLY = "/comments-product-add-reply";
 
 export const ON_ADD_COMMENT = "/comments-product-add-comment";
+
+// tests
+export const GET_DEMO_DATA = "http://localhost:8080/clientes";

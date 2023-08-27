@@ -90,14 +90,23 @@ const postJwtRegister = (url, data) => {
 // Login Method
 const postJwtLogin = data => post(url.POST_FAKE_JWT_LOGIN, data);
 
-const postJwtLoginJava2 = data => {
+const postJwtLoginJava = data => {
   return axios
     .post(url.POST_JWT_LOGIN, data)
     .then(response => {
+
       console.log(response)
       if (response.status >= 200 || response.status <= 299) {
-        
-        return response.data;
+        const token = response.headers.authorization; // Replace 'your-token-header' with the actual header key containing the token
+        const responseData = response.data;
+
+        // Create an object with the token and response data
+        const result = {
+          token: token,
+          data: responseData
+        };
+
+        return result;
       }
 
       throw response.data;
@@ -329,7 +338,7 @@ export {
   postFakeForgetPwd,
   postJwtRegister,
   postJwtLogin,
-  postJwtLoginJava2,
+  postJwtLoginJava,
   postJwtForgetPwd,
   postJwtProfile,
   getProductComents,
