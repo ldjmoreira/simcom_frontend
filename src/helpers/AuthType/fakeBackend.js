@@ -52,8 +52,8 @@ let users = [
     uid: 1,
     username: "admin",
     role: "admin",
-    password: "123456",
-    email: "admin@themesbrand.com",
+    password: "123",
+    email: "nelio.iftm@gmail.com",
   },
 ];
 

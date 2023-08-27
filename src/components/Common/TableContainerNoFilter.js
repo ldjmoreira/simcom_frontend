@@ -9,16 +9,20 @@ import {
   useExpanded,
   usePagination,
 } from "react-table";
+import { Link } from "react-router-dom";
 import { Table, Row, Col, Button, Input, CardBody } from "reactstrap";
 import { Filter, DefaultColumnFilter } from "./filters";
-import './css/common.css'; // Import the CSS file
+
 
 const TableContainer = ({
   columns,
   data,
   className,
   handleInputSearch,
-  onPageChange
+  onPageChange ,
+  showButtonLink ,
+  buttonLink,
+  buttonText
 }) => {
   const {
     getTableProps,
@@ -57,7 +61,7 @@ const TableContainer = ({
     <Fragment>
       <Row className="mb-2">
         <Col md={3}>
-        <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+          <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
             <div className="position-relative">
               <label htmlFor="search-bar-0" className="search-label">
                 <input
@@ -68,13 +72,13 @@ const TableContainer = ({
                   id="search-bar-0"
                   type="text"
                   className="form-control"
-                  placeholder={` busque componentes`}
+                  placeholder={` buscar ...`}
                   value={searchTerm || ""}
                 />
               </label>
               <i className="bx bx-search-alt search-icon"></i>
             </div>
-          </div>
+          </div>  
           
         </Col>
         <Col md={1}>
@@ -94,13 +98,22 @@ const TableContainer = ({
             <Button
               type="button"
               color="warning"
-              className="btn-table-procurar-constrast"
+              className="btn-table-procurar-constrast ms-2"
               onClick={handleInputClean}
             >
               Limpar
             </Button>
           </div>
         </Col>
+        {showButtonLink  ? (
+          <Col md={6} className="text-end">
+            <Link to={buttonLink} className="d-inline-block mx-2">
+              <button className="btn btn-primary
+               bg-gradient btn-rounded waves-effect
+                waves-light mt-3" >{buttonText}</button>
+            </Link>
+          </Col>
+        ) : null}
       </Row>
 
       <div className="table-responsive react-table">
@@ -114,7 +127,7 @@ const TableContainer = ({
                       {column.render("Header")}
                       {generateSortingIndicator(column)}
                     </div>
-                    <Filter column={column} />
+                    
                   </th>
                 ))}
               </tr>

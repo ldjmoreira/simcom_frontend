@@ -155,20 +155,61 @@ const SidebarContent = props => {
               <li>
                 <Link to="/dashboard">{props.t("Default")}</Link>
               </li>
+            </ul>
+          </li>
+
+          <li>
+            <Link to="/#" className="has-arrow">
+              <i className="bx bxs-package"></i>
+              <span>{props.t("Ativos")}</span>
+            </Link>
+            <ul className="sub-menu">
               <li>
-                <Link to="#">{props.t("Saas")}</Link>
+                <Link to="/componentes/buscar">{props.t("Buscar")}</Link>
               </li>
               <li>
-                <Link to="#">{props.t("Crypto")}</Link>
+                <Link to="/componentes/adicionar">{props.t("Adicionar")}</Link>
               </li>
               <li>
-                <Link to="#">{props.t("Blog")}</Link>
+                <Link to="/componentes/solicitar">{props.t("Solicitar")}</Link>
               </li>
+
+            </ul>
+          </li>
+
+          
+          <li>
+            <Link to="/#" className="has-arrow">
+              <i className="bx bx-chip"></i>
+              <span>{props.t("Componentes")}</span>
+            </Link>
+            <ul className="sub-menu">
               <li>
-                <Link to="#">
-                  <span className="badge rounded-pill text-bg-success float-end" key="t-new">New</span>
-                  {props.t("Jobs")}
-                </Link>
+                <Link to="/tipocomponente/buscar">{props.t("Buscar")}</Link>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <Link to="/#" className="has-arrow">
+              <i className="bx  bx-book-open"></i>
+              <span>{props.t("Disciplina")}</span>
+            </Link>
+            <ul className="sub-menu">
+              <li>
+                <Link to="/disciplinas/adicionar">{props.t("Adicionar")}</Link>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <Link to="/#" className="has-arrow">
+              <i className="bx bx-user"></i>
+              <span>{props.t("Usuários")}</span>
+            </Link>
+            <ul className="sub-menu">
+              <li>
+                <Link to="/usuarios/adicionar">{props.t("Gerenciar")}</Link>
               </li>
             </ul>
           </li>

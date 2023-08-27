@@ -10,37 +10,31 @@ import {
   postFakeLogin,
   postJwtLogin,
   postSocialLogin,
-} from "../../../helpers/fakebackend_helper";
+  postJwtLoginJava
+} from "../../../helpers/dealing_routes";
+import { exists } from "i18next";
 
 const fireBaseBackend = getFirebaseBackend();
 
-function* loginUser({ payload: { user, history } }) {
+function* loginUser({ payload: { user, history } }) { 
   try {
-    if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
-      const response = yield call(
-        fireBaseBackend.loginUser,
-        user.email,
-        user.password
-      );
-      yield put(loginSuccess(response));
-    } else if (process.env.REACT_APP_DEFAULTAUTH === "jwt") {
-      const response = yield call(postJwtLogin, {
+    if (process.env.REACT_APP_DEFAULTAUTH == 'jwt') {
+      console.log(user)
+
+      const response = yield call(postJwtLoginJava, {
         email: user.email,
-        password: user.password,
+        senha: user.password,
       });
-      localStorage.setItem("authUser", JSON.stringify(response));
+      console.log('allow')
+      console.log(response)
+      yield localStorage.setItem("authUser", JSON.stringify(response));
       yield put(loginSuccess(response));
-    } else if (process.env.REACT_APP_DEFAULTAUTH === "fake") {
-      const response = yield call(postFakeLogin, {
-        email: user.email,
-        password: user.password,
-      });
-      localStorage.setItem("authUser", JSON.stringify(response));
-      yield put(loginSuccess(response));
-    }
-    history('/dashboard');
+    } 
+    history('/componentes/buscar');
   } catch (error) {
-    yield put(apiError(error));
+    console.log(error)
+    console.log(error.message)
+    yield put(apiError(error.message));
   }
 }
 

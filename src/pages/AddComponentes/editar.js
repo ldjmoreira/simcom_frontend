@@ -5,19 +5,23 @@ import {
   Row,
   Card,
 } from "reactstrap";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 //Import Breadcrumb
 import { del, get, post, put } from "../../helpers/api_helper";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-import TableContainer from '../../components/Common/TableContainer';
+import TableContainer from '../../components/Common/TableContainerNoFilter';
 import Pagination from '../../components/Common/Pagination';
 //i18n
 import { withTranslation } from "react-i18next";
-const Dashboard = props => {
-
+const Editar = props => {
+  const { demoData } = useSelector(state => ({
+    demoData: state.Login.demoData,
+  }));
   const columns = useMemo(
     () => [
       {
-        Header: 'OrderId',
+        Header: 'Identificador',
         accessor: 'id',
       },
       {
@@ -40,6 +44,27 @@ const Dashboard = props => {
         Header: 'local',
         accessor: 'local',
       },
+      {
+        Header: 'Ações',
+        Cell: ({ row }) => (
+          <div className="d-flex justify-content-center">
+
+            <Link to={`/componentes/adicionar2/${row.original.id}`} className="d-inline-block mx-2">
+              <i className="bx bx-pencil" style={{ fontSize: '24px', color: '#556ee6'  }}></i>
+            </Link>
+
+
+            <a
+              className="d-inline-block mx-2"
+              onClick={() => handleRemove(row.original.id)}
+            >
+              <i className="bx bx-trash-alt" style={{ fontSize: '24px', color: '#DC143C'  }}></i>
+            </a>
+
+
+          </div>
+        ),
+      },
 
     ],
     []
@@ -54,7 +79,7 @@ const [paginationKey, setPaginationKey] = useState(Date.now());
 const fetchUsers = async (page) => {
   try {
     setLoading(true);
-    const response = await get('http://localhost:8080/componentes/buscar', {
+    const response = await get('/api/componentes/buscar', {
       params: {
         page: page,
         size: perPage,
@@ -67,7 +92,7 @@ const fetchUsers = async (page) => {
     setLoading(false);
     //setPaginationKey(Date.now()); 
     setCurrentPage(response.number)
-
+   console.log(demoData)
   } catch (error) {
     //setError(error);
     setLoading(false);
@@ -79,7 +104,7 @@ const handleInputSearch = async (buscaString) => {
   try {
     setLoading(true);
     setCurrentPage(0)
-    const response = await post('http://localhost:8080/componentes/buscar',
+    const response = await post('/api/componentes/buscar',
     {
       searchRequest: buscaString
     },
@@ -120,10 +145,24 @@ const handleInputSearch = async (buscaString) => {
         <Container fluid>
           {/* Render Breadcrumb */}
           <Breadcrumbs
-            title={props.t("Dashboards")}
-            breadcrumbItem={props.t("Dashboard")}
+            title={props.t("Componentes")}
+            breadcrumbItem={props.t("Buscar")}
           />
-
+              <Card className="p-3">
+                
+                <TableContainer
+                    columns={columns}
+                    data={data}
+                    className="custom-header-css"
+                    handleInputSearch={handleInputSearch}
+                    onPageChange={handlePageChange}
+                    showButtonLink={true}
+                    buttonLink="/componentes/adicionar2/0"
+                    buttonText="Novo componente"
+                />
+                <Pagination  key={loading} currentPage={currentPage+1}
+                 totalPages={totalRows} onPageChange={handlePageChange} />
+              </Card>
           </Container>
           </div>
     </React.Fragment>
@@ -131,4 +170,4 @@ const handleInputSearch = async (buscaString) => {
 };
 
 
-export default withTranslation()(Dashboard);
+export default withTranslation()(Editar);

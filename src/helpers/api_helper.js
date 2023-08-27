@@ -5,13 +5,15 @@ import accessToken from "./jwt-token-access/accessToken";
 const token = accessToken;
 
 //apply base url for axios
-const API_URL = "";
-
+const API_URL2 = "http://saudeon.giize.com:8080";
+//const API_URL = process.env.API_URL ;
 const axiosApi = axios.create({
-  baseURL: API_URL,
+  baseURL: API_URL2,
 });
+const obj = JSON.parse(localStorage.getItem("authUser"));
 
-axiosApi.defaults.headers.common["Authorization"] = token;
+
+axiosApi.defaults.headers.common["Authorization"] = obj?.token;
 
 axiosApi.interceptors.response.use(
   (response) => response,

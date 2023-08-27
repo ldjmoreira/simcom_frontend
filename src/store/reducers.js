@@ -54,8 +54,12 @@ import DashboardBlog from "./dashboard-blog/reducer";
 //Dasboard job
 import DashboardJob from "./dashboard-jobs/reducer";
 
+//Dasboard job
+import Demo from "./demo/reducer";
+
 const rootReducer = combineReducers({
   // public
+  Demo,
   Layout,
   Login,
   Account,
