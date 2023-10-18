@@ -114,7 +114,7 @@ const postJwtLoginJava = data => {
     .catch(err => {
       let message;
       console.log(err)
-      throw err;
+      throw err.message;
     });
 };
 

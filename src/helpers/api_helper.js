@@ -12,7 +12,10 @@ const axiosApi = axios.create({
 });
 const obj = JSON.parse(localStorage.getItem("authUser"));
 
-axiosApi.defaults.headers.common["Authorization"] = obj.token;
+
+if (obj !== null) {
+  axiosApi.defaults.headers.common["Authorization"] = obj.token;
+}
 
 axiosApi.interceptors.response.use(
   (response) => response,
