@@ -37,4 +37,4 @@ jobs:
         username: ${{ secrets.RASPBERRY_PI_USERNAME }}
         password: ${{ secrets.RASPBERRY_PI_PASSWORD }}
         source: build/  # Adjust the source path based on your build output
-        target: /path/to/apache/folder  # Adjust the target path on your Raspberry Pi
+        target: /var/www/html  # Adjust the target path on your Raspberry Pi
