@@ -10,7 +10,8 @@ import {
 //i18n
 import { withTranslation } from "react-i18next";
 // Redux
-import { connect } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
 
@@ -20,8 +21,14 @@ import user1 from "../../../assets/images/users/avatar11.png";
 const ProfileMenu = props => {
   // Declare a new state variable, which we'll call "menu"
   const [menu, setMenu] = useState(false);
+  
+  const { demoData } = useSelector(state => ({
+    demoData: state.Login.demoData,
+  }));
 
   const [username, setusername] = useState("Admin");
+  console.log('antes de mais nada')
+  console.log(demoData)
 
   useEffect(() => {
     if (localStorage.getItem("authUser")) {
@@ -36,7 +43,7 @@ const ProfileMenu = props => {
         setusername(obj.username);
       }
     }
-  }, [props.success]);
+  }, []);
 
   return (
     <React.Fragment>
@@ -55,7 +62,7 @@ const ProfileMenu = props => {
             src={user1}
             alt="Header Avatar"
           />
-          <span className="d-none d-xl-inline-block ms-2 me-1">{username}</span>
+          <span className="d-none d-xl-inline-block ms-2 me-1">{demoData.data?.nome}</span>
           <i className="mdi mdi-chevron-down d-none d-xl-inline-block" />
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
@@ -81,11 +88,7 @@ ProfileMenu.propTypes = {
   t: PropTypes.any
 };
 
-const mapStatetoProps = state => {
-  const { error, success } = state.Profile;
-  return { error, success };
-};
 
 export default withRouter(
-  connect(mapStatetoProps, {})(withTranslation()(ProfileMenu))
+  (withTranslation()(ProfileMenu))
 );

@@ -11,6 +11,7 @@ export const SOCIAL_LOGIN = "/social-login";
 //LOGIN2
 export const POST_LOGIN = "/post-login";
 export const POST_JWT_LOGIN = "http://saudeon.giize.com:8080/login";
+export const POST_JWT_LOGIN_HOME = "http://localhost:8080/login";
 export const POST_PASSWORD_FORGET = "/forget-pwd";
 export const POST_JWT_PASSWORD_FORGET = "/jwt-forget-pwd";
 

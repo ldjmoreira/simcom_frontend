@@ -41,7 +41,7 @@ const App = () => {
     layoutType: state.Layout.layoutType,
   }));
 
-  const Layout = getLayout(layoutType);
+  const Layout = getLayout(layoutType);//vertical
 
   return (
     <React.Fragment>

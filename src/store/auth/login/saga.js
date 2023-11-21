@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { take,call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 // Login Redux States
 import { LOGIN_USER, LOGOUT_USER, SOCIAL_LOGIN } from "./actionTypes";
@@ -10,7 +10,8 @@ import {
   postFakeLogin,
   postJwtLogin,
   postSocialLogin,
-  postJwtLoginJava
+  postJwtLoginJava,
+  postJwtLoginJavaHome
 } from "../../../helpers/dealing_routes";
 import { exists } from "i18next";
 
@@ -18,19 +19,37 @@ const fireBaseBackend = getFirebaseBackend();
 
 function* loginUser({ payload: { user, history } }) { 
   try {
-    if (process.env.REACT_APP_DEFAULTAUTH == 'jwt') {
+    if (process.env.REACT_APP_DEFAULTAUTH == 'prod') {
       console.log(user)
 
       const response = yield call(postJwtLoginJava, {
         email: user.email,
         senha: user.password,
       });
+
       console.log('allow')
       console.log(response)
+      
       yield localStorage.setItem("authUser", JSON.stringify(response));
       yield put(loginSuccess(response));
-    } 
-    history('/componentes/buscar');
+      history('/componentes/buscar');
+    } else if (process.env.REACT_APP_DEFAULTAUTH == 'dev') {
+      console.log(user)
+
+      const response = yield call(postJwtLoginJavaHome, {
+        email: user.email,
+        senha: user.password,
+      });
+
+      console.log('allow')
+      console.log(response)
+
+      yield localStorage.setItem("authUser", JSON.stringify(response));
+      yield put(loginSuccess(response));
+      history('/componentes/buscar');
+    }
+    console.log('asd')
+    
   } catch (error) {
     console.log(error)
     console.log(error.message)

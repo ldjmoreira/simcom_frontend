@@ -38,14 +38,10 @@ const Login = props => {
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
 
-    initialValues: {
-      email: "nelio.iftm@gmail.com" || '',
-      senha: "123" || '',
-    },
 
     initialValues: {
-      email: "nelio.iftm@gmail.com" || '',
-      password: "123" || '',
+      email: process.env.REACT_APP_DEFAULTAUTH == 'dev' ? "nelio.iftm@gmail.com" : '',
+      password: process.env.REACT_APP_DEFAULTAUTH == 'dev' ? "123" : ''
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
@@ -109,8 +105,8 @@ const Login = props => {
                   <Row>
                     <Col xs={7}>
                       <div className="text-primary p-4">
-                        <h5 className="text-primary">Welcome Back !</h5>
-                        <p>Sign in to continue to Skote.</p>
+                        <h5 className="text-primary">Bem Vindo !</h5>
+                        <p>Faça o Login para entrar no sistema</p>
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end">
@@ -211,7 +207,7 @@ const Login = props => {
                       <div className="mt-4 text-center">
                         <Link to="/forgot-password" className="text-muted">
                           <i className="mdi mdi-lock me-1" />
-                          Forgot your password?
+                          Esqueceu a senha?
                         </Link>
                       </div>
                     </Form>
@@ -220,16 +216,13 @@ const Login = props => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Don&#39;t have an account ?{" "}
+                  Não tem uma conta ?{" "}
                   <Link to="/register" className="fw-medium text-primary">
                     {" "}
                     Signup now{" "}
                   </Link>{" "}
                 </p>
-                <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
-                </p>
+
               </div>
             </Col>
           </Row>

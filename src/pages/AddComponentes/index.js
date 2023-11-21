@@ -407,7 +407,9 @@ const EcommerceCheckout = (props) => {
       fetchOptions();
     }, []);
 
+    
     useEffect(() => {
+
       carregaSeEdit(componenteId)
     }, []);
     

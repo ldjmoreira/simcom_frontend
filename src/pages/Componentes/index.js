@@ -6,21 +6,32 @@ import {
   Card,
 } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../store/actions";
 //Import Breadcrumb
-import { del, get, post, put } from "../../helpers/api_helper";
+import { del, get, post, put,setAuthToken } from "../../helpers/api_helper";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import TableContainer from '../../components/Common/TableContainer';
 import Pagination from '../../components/Common/Pagination';
 //i18n
 import { withTranslation } from "react-i18next";
+
+
+
 const Componentes = props => {
   const { demoData } = useSelector(state => ({
     demoData: state.Login.demoData,
   }));
+
+console.log('componentes');
+console.log(demoData)
+  const history = useNavigate();
+  const dispatch = useDispatch();
+  
   const columns = useMemo(
     () => [
       {
-        Header: 'OrderId',
+        Header: 'OrderId2',
         accessor: 'id',
       },
       {
@@ -74,11 +85,16 @@ const fetchUsers = async (page) => {
     setLoading(false);
     //setPaginationKey(Date.now()); 
     setCurrentPage(response.number)
-   console.log(demoData)
+
   } catch (error) {
-    //setError(error);
+    //setError(error);  
+
+    console.log("_inicial")
     setLoading(false);
     console.log(error)
+    if (error?.message == "Request failed with status code 403") {
+      dispatch(logoutUser(history));
+    }
   }
 };
 
@@ -114,6 +130,9 @@ const handleInputSearch = async (buscaString) => {
 };
 
   useEffect(() => {
+    const obj = JSON.parse(localStorage.getItem("authUser"));
+    setAuthToken(obj?.token);
+
     fetchUsers(0);
   }, []);
 

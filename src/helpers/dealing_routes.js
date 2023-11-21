@@ -112,8 +112,34 @@ const postJwtLoginJava = data => {
       throw response.data;
     })
     .catch(err => {
-      
-      
+           
+      throw err;
+    });
+};
+
+const postJwtLoginJavaHome = data => {
+  return axios
+    .post(url.POST_JWT_LOGIN_HOME, data)
+    .then(response => {
+
+      console.log(response)
+      if (response.status >= 200 || response.status <= 299) {
+        const token = response.headers.authorization; // Replace 'your-token-header' with the actual header key containing the token
+        const responseData = response.data;
+
+        // Create an object with the token and response data
+        const result = {
+          token: token,
+          data: responseData
+        };
+
+        return result;
+      }
+
+      throw response.data;
+    })
+    .catch(err => {
+           
       throw err;
     });
 };
@@ -339,6 +365,7 @@ export {
   postJwtRegister,
   postJwtLogin,
   postJwtLoginJava,
+  postJwtLoginJavaHome,
   postJwtForgetPwd,
   postJwtProfile,
   getProductComents,
