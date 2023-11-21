@@ -31,10 +31,11 @@ jobs:
 
     steps:
     - name: Copy build files to Raspberry Pi
-      uses: appleboy/scp-action@master
+      uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.RASPBERRY_PI_HOST }}
         username: ${{ secrets.RASPBERRY_PI_USERNAME }}
         password: ${{ secrets.RASPBERRY_PI_PASSWORD }}
+        port: 22
         source: build/  # Adjust the source path based on your build output
         target: /var/www/html  # Adjust the target path on your Raspberry Pi
